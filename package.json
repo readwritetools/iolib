@@ -1,0 +1,42 @@
+{
+  "name": "iolib",
+  "version": "1.0.0",
+  "description": "Code for handling line-by-line text I/O, block oriented binary I/O, and filesystem operations.",
+  "author": "Read Write Tools",
+  "license": "MIT",
+  "module": "iolib.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/readwritetools/iolib.git"
+  },
+  "keywords": [
+    "BinaryWriter",
+    "BinaryReader",
+    "TextWriter",
+    "TextReader",
+    "filesystem"
+  ],
+  "bugs": {
+    "url": "https://github.com/readwritetools/iolib/issues"
+  },
+  "homepage": "https://hub.readwritetools.com/libs/iolib.blue",
+  "files": [
+    "img",
+    "license.txt",
+    "readme.md",
+    "*.js"
+  ],
+  "com_readwritetools": {
+  	"modules": {
+  		"esmodules": true,
+  		"commonjs": false
+  	},
+  	"suitability": { 
+  		"nodejs": "api",
+  		"browser": "none"
+  	},
+	"dependencies": {
+		"softlib": ">= 1.0.0"
+  	}
+  }
+}
