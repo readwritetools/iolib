@@ -1,6 +1,6 @@
 {
   "name": "iolib",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Code for handling line-by-line text I/O, block oriented binary I/O, and filesystem operations.",
   "author": "Read Write Tools",
   "license": "MIT",
@@ -27,16 +27,16 @@
     "*.js"
   ],
   "com_readwritetools": {
-  	"modules": {
-  		"esmodules": true,
-  		"commonjs": false
-  	},
-  	"suitability": { 
-  		"nodejs": "api",
-  		"browser": "none"
-  	},
-	"dependencies": {
-		"softlib": ">= 1.0.0"
-  	}
+    "modules": {
+      "esmodules": true,
+      "commonjs": false
+    },
+    "suitability": {
+      "nodejs": "api",
+      "browser": "none"
+    },
+    "dependencies": {
+      "softlib": ">= 1.0.0"
+    }
   }
 }
