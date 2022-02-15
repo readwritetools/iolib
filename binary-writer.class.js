@@ -1,11 +1,11 @@
 /* Copyright (c) 2022 Read Write Tools. */
 import FS from 'fs';
 
-import terminal from '../safelib/terminal.js';
+import terminal from '../softlib/terminal.js';
 
-import expect from '../safelib/expect.js';
+import expect from '../softlib/expect.js';
 
-import aver from '../safelib/aver.js';
+import aver from '../softlib/aver.js';
 
 export default class BinaryWriter {
     constructor() {
@@ -37,10 +37,10 @@ export default class BinaryWriter {
             terminal.abnormal(e.message);
         }
     }
-    writeBlock(e, r) {
-        expect(e, 'Buffer'), expect(r, 'Number');
+    writeBlock(e, t) {
+        expect(e, 'Buffer'), expect(t, 'Number');
         try {
-            FS.writeSync(this.fd, e, 0, r);
+            FS.writeSync(this.fd, e, 0, t);
         } catch (e) {
             terminal.abnormal(e.message);
         }
@@ -48,10 +48,10 @@ export default class BinaryWriter {
     writeUint32(e) {
         if (expect(e, 'Number'), aver(e < 4294967296), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(4);
-            new DataView(r).setUint32(0, e, !0);
-            var t = new Uint8Array(r);
-            FS.writeSync(this.fd, t);
+            var t = new ArrayBuffer(4);
+            new DataView(t).setUint32(0, e, !0);
+            var r = new Uint8Array(t);
+            FS.writeSync(this.fd, r);
         } catch (e) {
             terminal.abnormal(e.message);
         }
@@ -59,10 +59,10 @@ export default class BinaryWriter {
     writeUint16(e) {
         if (expect(e, 'Number'), aver(e < 65536), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(2);
-            new DataView(r).setUint16(0, e, !0);
-            var t = new Uint8Array(r);
-            FS.writeSync(this.fd, t);
+            var t = new ArrayBuffer(2);
+            new DataView(t).setUint16(0, e, !0);
+            var r = new Uint8Array(t);
+            FS.writeSync(this.fd, r);
         } catch (e) {
             terminal.abnormal(e.message);
         }
@@ -70,10 +70,10 @@ export default class BinaryWriter {
     writeUint8(e) {
         if (expect(e, 'Number'), aver(e < 256), !this.isOpen()) return null;
         try {
-            var r = new ArrayBuffer(1);
-            new DataView(r).setUint8(0, e, !0);
-            var t = new Uint8Array(r);
-            FS.writeSync(this.fd, t);
+            var t = new ArrayBuffer(1);
+            new DataView(t).setUint8(0, e, !0);
+            var r = new Uint8Array(t);
+            FS.writeSync(this.fd, r);
         } catch (e) {
             terminal.abnormal(e.message);
         }

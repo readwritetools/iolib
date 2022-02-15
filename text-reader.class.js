@@ -1,9 +1,9 @@
 /* Copyright (c) 2022 Read Write Tools. */
 import FS from 'fs';
 
-import terminal from '../safelib/terminal.js';
+import terminal from '../softlib/terminal.js';
 
-import expect from '../safelib/expect.js';
+import expect from '../softlib/expect.js';
 
 import BinaryReader from './binary-reader.class.js';
 

@@ -1,59 +1,59 @@
 /* Copyright (c) 2022 Read Write Tools. */
 import FS from 'fs';
 
-import terminal from '../safelib/terminal.js';
+import terminal from '../softlib/terminal.js';
 
-import expect from '../safelib/expect.js';
+import expect from '../softlib/expect.js';
 
 export default class Pfile {
-    constructor(e) {
-        null == e && (e = ''), 'Pfile' == e.constructor.name || 'Object' == e.constructor.name && '_filename' in e ? this._copyConstructor(e) : this._normalConstructor(e), 
+    constructor(t) {
+        null == t && (t = ''), 'Pfile' == t.constructor.name || 'Object' == t.constructor.name && '_filename' in t ? this._copyConstructor(t) : this._normalConstructor(t), 
         Object.seal(this);
     }
-    _normalConstructor(e) {
-        expect(e, 'String'), this.setPath(e);
+    _normalConstructor(t) {
+        expect(t, 'String'), this.setPath(t);
     }
-    _copyConstructor(e) {
-        expect(e, 'Pfile'), this._filename = e._filename;
+    _copyConstructor(t) {
+        expect(t, 'Pfile'), this._filename = t._filename;
     }
     get name() {
         return this._filename;
     }
-    setPath(e) {
-        return expect(e, 'String'), this._filename = Pfile.posixStyle(e), this;
+    setPath(t) {
+        return expect(t, 'String'), this._filename = Pfile.posixStyle(t), this;
     }
-    addPath(e) {
-        expect(e, [ 'String', 'Pfile' ]), 'Pfile' == e.constructor.name && (e = e.name), 
-        e = Pfile.posixStyle(e);
-        var t = this._filename.length;
-        return t > 0 && '/' != this._filename.charAt(t - 1) ? this._filename += '/' + e : this._filename += e, 
+    addPath(t) {
+        expect(t, [ 'String', 'Pfile' ]), 'Pfile' == t.constructor.name && (t = t.name), 
+        t = Pfile.posixStyle(t);
+        var e = this._filename.length;
+        return e > 0 && '/' != this._filename.charAt(e - 1) ? this._filename += '/' + t : this._filename += t, 
         this.canonicalize(), this;
     }
-    addPathBefore(e) {
-        expect(e, 'String'), e = Pfile.posixStyle(e), this.isAbsolutePath() && terminal.logic(`Attempting to add the path "${e}" before the absolute filename "${this._filename}" is probably not what you want.`);
-        var t = e.length;
-        return t > 0 && '/' != e.charAt(t - 1) ? this._filename = e + '/' + this._filename : this._filename = e + this._filename, 
+    addPathBefore(t) {
+        expect(t, 'String'), t = Pfile.posixStyle(t), this.isAbsolutePath() && terminal.logic(`Attempting to add the path "${t}" before the absolute filename "${this._filename}" is probably not what you want.`);
+        var e = t.length;
+        return e > 0 && '/' != t.charAt(e - 1) ? this._filename = t + '/' + this._filename : this._filename = t + this._filename, 
         this.canonicalize(), this;
     }
     canonicalize() {
         this._filename = this._filename.replace('/./', '/'), this._filename = this._filename.replace('//', '/');
-        for (var e = !0; e; ) e = this.removeDoubleDots();
-        var t = this._filename.length;
-        t > 1 && '/' == this._filename.charAt(t - 1) && (this._filename = this._filename.substr(0, t - 1));
+        for (var t = !0; t; ) t = this.removeDoubleDots();
+        var e = this._filename.length;
+        e > 1 && '/' == this._filename.charAt(e - 1) && (this._filename = this._filename.substr(0, e - 1));
     }
     removeDoubleDots() {
-        var e = this._filename.split('/');
-        for (let t = 1; t < e.length - 1; t++) if ('..' != e[t - 1] && '..' == e[t]) return e.splice(t - 1, 2), 
-        this._filename = e.join('/'), !0;
+        var t = this._filename.split('/');
+        for (let e = 1; e < t.length - 1; e++) if ('..' != t[e - 1] && '..' == t[e]) return t.splice(e - 1, 2), 
+        this._filename = t.join('/'), !0;
         return !1;
     }
     static getCwd() {
         return Pfile.posixStyle(process.cwd());
     }
-    makeAbsolute(e) {
-        return this.isAbsolutePath() ? this : (e = null == e ? Pfile.getCwd() : Pfile.posixStyle(e), 
-        expect(e, 'String'), 0 == this._filename.length ? (this._filename = e, this) : new Pfile(e).isAbsolutePath() ? (this.addPathBefore(e), 
-        this) : (terminal.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${e}" won't work.`), 
+    makeAbsolute(t) {
+        return this.isAbsolutePath() ? this : (t = null == t ? Pfile.getCwd() : Pfile.posixStyle(t), 
+        expect(t, 'String'), 0 == this._filename.length ? (this._filename = t, this) : new Pfile(t).isAbsolutePath() ? (this.addPathBefore(t), 
+        this) : (terminal.logic(`Attempting to make "${this._filename}" absolute by prefixing it with the non-absolute path "${t}" won't work.`), 
         this));
     }
     getFQN() {
@@ -61,61 +61,61 @@ export default class Pfile {
     }
     getPath() {
         if (this.isDirectory()) return this._filename;
-        var e = this._filename.split('/');
-        return e.splice(0, e.length - 1).join('/');
+        var t = this._filename.split('/');
+        return t.splice(0, t.length - 1).join('/');
     }
     getFilename() {
         if (this.isDirectory()) return '';
-        var e = this._filename.split('/');
-        return e[e.length - 1];
+        var t = this._filename.split('/');
+        return t[t.length - 1];
     }
     getStem() {
-        var e = this.getFilename(), t = e.split('.');
-        return t.length <= 1 || 2 == t.length && 0 == t[0].length ? e : t.splice(0, t.length - 1).join('.');
+        var t = this.getFilename(), e = t.split('.');
+        return e.length <= 1 || 2 == e.length && 0 == e[0].length ? t : e.splice(0, e.length - 1).join('.');
     }
     getExtension() {
-        var e = this.getFilename().split('.');
-        return e.length <= 1 || 2 == e.length && 0 == e[0].length ? '' : e[e.length - 1];
+        var t = this.getFilename().split('.');
+        return t.length <= 1 || 2 == t.length && 0 == t[0].length ? '' : t[t.length - 1];
     }
-    addExtension(e) {
-        return this._filename = `${this._filename}.${e}`, this;
+    addExtension(t) {
+        return this._filename = `${this._filename}.${t}`, this;
     }
-    replaceExtension(e) {
-        var t = this.getPath(), i = this.getStem();
-        return this._filename = `${t}/${i}.${e}`, this;
+    replaceExtension(t) {
+        var e = this.getPath(), i = this.getStem();
+        return this._filename = `${e}/${i}.${t}`, this;
     }
     exists() {
         try {
             return FS.accessSync(this._filename, FS.constants.F_OK), !0;
-        } catch (e) {
-            return 'ENOENT' != e.code && ('EACCES' != e.code && 'ENOTDIR' != e.code);
+        } catch (t) {
+            return 'ENOENT' != t.code && ('EACCES' != t.code && 'ENOTDIR' != t.code);
         }
     }
     isReadable() {
         try {
             return FS.accessSync(this._filename, FS.constants.R_OK), !0;
-        } catch (e) {
-            return 'EACCES' != e.code;
+        } catch (t) {
+            return 'EACCES' != t.code;
         }
     }
     isWritable() {
         try {
             return FS.accessSync(this._filename, FS.constants.W_OK), !0;
-        } catch (e) {
-            return 'EACCES' != e.code;
+        } catch (t) {
+            return 'EACCES' != t.code;
         }
     }
     isExecutable() {
         try {
             return FS.accessSync(this._filename, FS.constants.X_OK), !0;
-        } catch (e) {
-            return 'EACCES' != e.code;
+        } catch (t) {
+            return 'EACCES' != t.code;
         }
     }
     unlinkFile() {
         try {
             return !(!this.exists() || !this.isFile()) && (FS.unlinkSync(this._filename), !0);
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
@@ -123,20 +123,20 @@ export default class Pfile {
         try {
             return !(!this.exists() || !this.isDirectory()) && (FS.rmdirSync(this._filename), 
             !0);
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
     mkDir() {
         if (this.exists()) return !0;
-        var e = new Pfile(this);
-        e.makeAbsolute();
-        var t = e._filename.split('/');
-        t[0].length > 1 && ':' == t[0].charAt(1) && (t[0] = t[0].substr(2));
+        var t = new Pfile(this);
+        t.makeAbsolute();
+        var e = t._filename.split('/');
+        e[0].length > 1 && ':' == e[0].charAt(1) && (e[0] = e[0].substr(2));
         var i = new Pfile('/');
-        for (let e = 0; e < t.length; e++) if (t[e].length > 0 && (i.addPath(t[e]), !i.exists())) try {
+        for (let t = 0; t < e.length; t++) if (e[t].length > 0 && (i.addPath(e[t]), !i.exists())) try {
             FS.mkdirSync(i.getFQN());
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
         return !0;
@@ -153,35 +153,35 @@ export default class Pfile {
     isDirectory() {
         try {
             return FS.lstatSync(this._filename).isDirectory();
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
     isFile() {
         try {
             return FS.lstatSync(this._filename).isFile();
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
     isSymbolicLink() {
         try {
             return FS.lstatSync(this._filename).isSymbolickLink();
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
     getFileSize() {
         try {
             return FS.statSync(this._filename).size;
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
     getModificationTime() {
         try {
             return FS.statSync(this._filename).mtime;
-        } catch (e) {
+        } catch (t) {
             return !1;
         }
     }
@@ -190,16 +190,16 @@ export default class Pfile {
     }
     touch() {
         try {
-            var e = new Date;
-            return FS.utimesSync(this._filename, e, e), !0;
-        } catch (e) {
+            var t = new Date;
+            return FS.utimesSync(this._filename, t, t), !0;
+        } catch (t) {
             return !1;
         }
     }
-    static posixStyle(e) {
-        return expect(e, 'String'), e.replace(/\\/g, '/');
+    static posixStyle(t) {
+        return expect(t, 'String'), t.replace(/\\/g, '/');
     }
-    static windowsStyle(e) {
-        return expect(e, 'String'), e.replace(/\//g, '\\');
+    static windowsStyle(t) {
+        return expect(t, 'String'), t.replace(/\//g, '\\');
     }
 }

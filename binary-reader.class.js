@@ -1,9 +1,9 @@
 /* Copyright (c) 2022 Read Write Tools. */
 import FS from 'fs';
 
-import terminal from '../safelib/terminal.js';
+import terminal from '../softlib/terminal.js';
 
-import expect from '../safelib/expect.js';
+import expect from '../softlib/expect.js';
 
 export default class BinaryReader {
     constructor() {
@@ -13,12 +13,12 @@ export default class BinaryReader {
     initialize() {
         this.buffer.fill(0), this.bufferLength = 0, this.blockOffset = 0, this.bufferOffset = 0;
     }
-    open(e) {
-        expect(e, [ 'String', 'Pfile' ]), 'Pfile' == e.constructor.name && (e = e.name);
+    open(t) {
+        expect(t, [ 'String', 'Pfile' ]), 'Pfile' == t.constructor.name && (t = t.name);
         try {
-            return this.fd = FS.openSync(e, 'r'), this.initialize(), !0;
-        } catch (e) {
-            return terminal.abnormal(e.message), !1;
+            return this.fd = FS.openSync(t, 'r'), this.initialize(), !0;
+        } catch (t) {
+            return terminal.abnormal(t.message), !1;
         }
     }
     isOpen() {
@@ -27,8 +27,8 @@ export default class BinaryReader {
     close() {
         if (this.isOpen()) try {
             this.fd = FS.closeSync(this.fd), this.fd = null;
-        } catch (e) {
-            terminal.abnormal(e.message), this.fd = null;
+        } catch (t) {
+            terminal.abnormal(t.message), this.fd = null;
         }
     }
     readBlock() {
@@ -36,8 +36,8 @@ export default class BinaryReader {
         try {
             return this.buffer.fill(0), this.bufferLength = FS.readSync(this.fd, this.buffer, 0, this.readSize, this.blockOffset), 
             this.blockOffset += this.bufferLength, this.bufferOffset = 0, this.bufferLength > 0;
-        } catch (e) {
-            return terminal.trace(e.message), this.bufferLength = 0, this.bufferOffset = 0, 
+        } catch (t) {
+            return terminal.trace(t.message), this.bufferLength = 0, this.bufferOffset = 0, 
             !1;
         }
     }
