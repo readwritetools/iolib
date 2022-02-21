@@ -1,6 +1,6 @@
 {
   "name": "iolib",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Code for handling line-by-line text I/O, block oriented binary I/O, and filesystem operations.",
   "author": "Read Write Tools",
   "license": "MIT",
