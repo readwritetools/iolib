@@ -16,7 +16,7 @@ export default class BinaryWriter {
         try {
             return this.fd = FS.openSync(t, 'w'), !0;
         } catch (t) {
-            return terminal.caught(t.message), !1;
+            return terminal.caught(t), !1;
         }
     }
     isOpen() {
@@ -26,7 +26,7 @@ export default class BinaryWriter {
         if (this.isOpen()) try {
             this.fd = FS.closeSync(this.fd), this.fd = null;
         } catch (t) {
-            terminal.caught(t.message), this.fd = null;
+            terminal.caught(t), this.fd = null;
         }
     }
     writeText(t) {
@@ -34,7 +34,7 @@ export default class BinaryWriter {
         try {
             FS.writeSync(this.fd, t);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeBlock(t, e) {
@@ -42,7 +42,7 @@ export default class BinaryWriter {
         try {
             FS.writeSync(this.fd, t, 0, e);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeBytes(t) {
@@ -50,7 +50,7 @@ export default class BinaryWriter {
         try {
             FS.writeSync(this.fd, t, 0, t.length);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeFloat32(t) {
@@ -61,7 +61,7 @@ export default class BinaryWriter {
             var r = new Uint8Array(e);
             FS.writeSync(this.fd, r);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeUint32(t) {
@@ -72,7 +72,7 @@ export default class BinaryWriter {
             var r = new Uint8Array(e);
             FS.writeSync(this.fd, r);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeUint16(t) {
@@ -83,7 +83,7 @@ export default class BinaryWriter {
             var r = new Uint8Array(e);
             FS.writeSync(this.fd, r);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeUint8(t) {
@@ -94,7 +94,7 @@ export default class BinaryWriter {
             var r = new Uint8Array(e);
             FS.writeSync(this.fd, r);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     writeLenPrefixedText(t) {
@@ -103,11 +103,11 @@ export default class BinaryWriter {
             try {
                 const r = (new TextEncoder).encode(t);
                 var e = r.byteLength;
-                if (e > 32767) return terminal.caught('text longer than 32767 bytes not supported'), 
+                if (e > 32767) return terminal.abnormal('text longer than 32767 bytes not supported'), 
                 void this.writeUint8(0);
                 e < 128 ? this.writeUint8(e) : this.writeUint16BigEndian(e + 32768), FS.writeSync(this.fd, r);
             } catch (t) {
-                terminal.caught(t.message);
+                terminal.caught(t);
             }
         } else this.writeUint8(0);
     }
@@ -120,7 +120,7 @@ export default class BinaryWriter {
             var r = new Uint8Array(e);
             FS.writeSync(this.fd, r);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
 }

@@ -18,7 +18,7 @@ export default class BinaryReader {
         try {
             return this.fd = FS.openSync(t, 'r'), this.initialize(), !0;
         } catch (t) {
-            return terminal.caught(t.message), !1;
+            return terminal.caught(t), !1;
         }
     }
     isOpen() {
@@ -28,7 +28,7 @@ export default class BinaryReader {
         if (this.isOpen()) try {
             this.fd = FS.closeSync(this.fd), this.fd = null;
         } catch (t) {
-            terminal.caught(t.message), this.fd = null;
+            terminal.caught(t), this.fd = null;
         }
     }
     readBlock() {

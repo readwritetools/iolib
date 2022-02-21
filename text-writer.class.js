@@ -25,7 +25,7 @@ export default class TextWriter extends BinaryWriter {
         try {
             this.isStream ? process.stdout.write(t) : FS.writeSync(this.fd, t);
         } catch (t) {
-            terminal.caught(t.message);
+            terminal.caught(t);
         }
     }
     putline(t) {
