@@ -1,11 +1,11 @@
 /* Copyright (c) 2022 Read Write Tools. */
 import FS from 'fs';
 
-import terminal from '../softlib/terminal.js';
+import terminal from 'softlib/terminal.js';
 
-import expect from '../softlib/expect.js';
+import expect from 'softlib/expect.js';
 
-import aver from '../softlib/aver.js';
+import aver from 'softlib/aver.js';
 
 export default class BinaryWriter {
     constructor() {
