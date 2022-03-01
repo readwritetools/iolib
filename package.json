@@ -5,10 +5,12 @@
   "author": "Read Write Tools",
   "license": "MIT",
   "type": "module",
-  "module": "iolib.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/readwritetools/iolib.git"
+  "exports": {
+    ".": "./sdk.js",
+    "./*": "./*"
+  },
+  "dependencies": {
+    "softlib": "^1.0.10"
   },
   "keywords": [
     "BinaryWriter",
@@ -17,6 +19,10 @@
     "TextReader",
     "filesystem"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/readwritetools/iolib.git"
+  },
   "bugs": {
     "url": "https://github.com/readwritetools/iolib/issues"
   },
@@ -35,9 +41,6 @@
     "suitability": {
       "browser": "none",
       "nodejs": "api"
-    },
-    "dependencies": {
-      "softlib": ">= 1.0.0"
     }
   }
 }
