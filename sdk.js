@@ -9,10 +9,4 @@ import TextReader from './text-reader.class.js';
 
 import TextWriter from './text-writer.class.js';
 
-export default {
-    BinaryReader,
-    BinaryWriter,
-    Pfile,
-    TextReader,
-    TextWriter
-};
+export { BinaryReader, BinaryWriter, Pfile, TextReader, TextWriter };
